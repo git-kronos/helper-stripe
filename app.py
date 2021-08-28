@@ -1,6 +1,8 @@
 import settings
 import stripe
-from core import Price, Product, Subscription
+from core import (
+    Price, Product, Subscription, Customer, Balance
+)
 
 stripe.api_key = settings.SECRET_KEY
 
@@ -10,7 +12,8 @@ stripe.api_key = settings.SECRET_KEY
 price = Price()
 product = Product()
 subscription = Subscription()
-
+customer = Customer()
+balance = Balance()
 
 # # ======================================
 # # Test Stripe API
@@ -23,7 +26,6 @@ subscription = Subscription()
 # products = product.all_products()
 # for p in products:
 #     print(p.id)
-
 
 
 # # ======================================
@@ -47,10 +49,23 @@ subscription = Subscription()
 # # ======================================
 # # Subscription
 # # ======================================
-# all_sub = subscription.get_all_subscription()
-
+# all_sub = [s.id for s in subscription.get_subscription_list()]
 # print('==================================')
 # for s in all_sub:
-#     sub = subscription.get_subscription(s.id)
-#     print(sub.plan.name)
-#     print(sub.plan.interval)
+#     sub = subscription.get_subscription(s)
+#     print(sub.id, sub.plan.name, sub.plan.interval, sub.plan.amount / 100)
+
+
+# # ======================================
+# # Customer
+# # ======================================
+# cus = customer.create()
+# print(cus)
+# print(cus.last_response.request_id)
+# list_cus = customer.list()
+# print([c.id for c in list_cus])
+#
+#
+# print([b.id for b in balance.retrieve()])
+bal = balance.retrieve()
+print(bal['available'][0]['currency'])

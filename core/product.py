@@ -1,7 +1,7 @@
 import stripe
 
-class Product:
 
+class Product:
     """ all stripe production methods """
 
     def get_product_list(self):
@@ -9,24 +9,20 @@ class Product:
 
         return stripe.Product.list()
 
-
-    def get_priduct(self, id:str):
+    def get_priduct(self, id: str):
         """ product retrive """
 
         return stripe.Product.retrieve(id)
 
-
-    def product_create(self, name:str):
+    def product_create(self, name: str):
         """ product create """
 
         return stripe.Product.create(name=name)
 
-
-    def product_modify(self, id:str, active:bool):
+    def product_modify(self, id: str, active: bool):
         """ product modify """
 
         return stripe.Product.modify(id, active=active)
-
 
     def product_delete(self, id: str):
         """ product delete """
